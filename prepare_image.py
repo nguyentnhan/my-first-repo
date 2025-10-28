@@ -4,19 +4,33 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 DATA_DIR = r"C:/Users/NHC/Documents/1python/clouds_train/cirriform clouds/img3.jpg"
-IMG_SIZE = (128,128)
+IMG_SIZE = (640,640)
 
 epoch=100
 lr=0.01
 losses=[]
-img=Image.open(DATA_DIR).resize(IMG_SIZE).convert("L")
-img = np.array(img)
-kernel = np.ones((3,3))
-img1 = np.where(img>150,img,0)
-print(kernel)
-#các hàm xử lý lớp
-print(img1)
-plt.imshow(img1, cmap='gray')
+imag=Image.open(DATA_DIR).resize(IMG_SIZE).convert("L")
+img = np.array(imag)
+img = np.where(img>140,1,0)
+img3 = np.zeros(IMG_SIZE)
+kernel = np.zeros((5,5))
+for i in range(636):
+    for j in range(636):
+        p=kernel+img[i:i+5,j:j+5]
+        if np.array_equal(p,kernel):
+            img3[i,j]=0
+        else:
+            img3[i,j]=1
+for i in range(636):
+    for j in range(636):
+        p=kernel+img[i:i+5,j:j+5]
+        if np.all(p==1):
+            img3[i,j]=1
+        else:
+            img3[i,j]=0
+imag=np.array(imag)  
+img=img3*imag+imag*(img3-1)*-1
+plt.imshow(img, cmap='gray')
 plt.axis('off')
 plt.show()
     
