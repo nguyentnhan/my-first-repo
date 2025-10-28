@@ -33,7 +33,7 @@ img=img3*imag+imag*(img3-1)*-1
 plt.imshow(img, cmap='gray')
 plt.axis('off')
 plt.show()
-    
+# xử lý CNN
 # X,y = load_images(DATA_DIR,1000)
 # X = X.reshape(-1,1,64,64)
 # from sklearn.model_selection import train_test_split
